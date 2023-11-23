@@ -227,24 +227,28 @@ variable "enable_resource_consumption_export" {
 
 variable "cluster_autoscaling" {
   type = object({
-    enabled       = bool
-    min_cpu_cores = number
-    max_cpu_cores = number
-    min_memory_gb = number
-    max_memory_gb = number
-    gpu_resources = list(object({ resource_type = string, minimum = number, maximum = number }))
-    auto_repair   = bool
-    auto_upgrade  = bool
+    enabled                     = bool
+    max_cpu_cores               = number
+    min_memory_gb               = number
+    min_cpu_cores               = number
+    max_memory_gb               = number
+    gpu_resources               = list(object({ resource_type = string, minimum = number, maximum = number }))
+    auto_repair                 = bool
+    auto_upgrade                = bool
+    enable_secure_boot          = optional(bool, false)
+    enable_integrity_monitoring = optional(bool, true)
   })
   default = {
-    enabled       = false
-    max_cpu_cores = 0
-    min_cpu_cores = 0
-    max_memory_gb = 0
-    min_memory_gb = 0
-    gpu_resources = []
-    auto_repair   = true
-    auto_upgrade  = true
+    enabled                     = false
+    max_cpu_cores               = 0
+    min_cpu_cores               = 0
+    max_memory_gb               = 0
+    min_memory_gb               = 0
+    gpu_resources               = []
+    auto_repair                 = true
+    auto_upgrade                = true
+    enable_secure_boot          = false
+    enable_integrity_monitoring = true
   }
   description = "Cluster autoscaling configuration. See [more details](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#clusterautoscaling)"
 }

@@ -110,6 +110,11 @@ resource "google_container_cluster" "primary" {
           auto_upgrade = lookup(var.cluster_autoscaling, "auto_upgrade", true)
         }
 
+        shielded_instance_config {
+          enable_secure_boot          = lookup(var.cluster_autoscaling, "enable_secure_boot", false)
+          enable_integrity_monitoring = lookup(var.cluster_autoscaling, "enable_integrity_monitoring", true)
+        }
+
       }
     }
     dynamic "resource_limits" {
