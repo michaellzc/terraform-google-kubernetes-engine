@@ -120,6 +120,11 @@ resource "google_container_cluster" "primary" {
         disk_size = lookup(var.cluster_autoscaling, "disk_size", 100)
         disk_type = lookup(var.cluster_autoscaling, "disk_type", "pd-standard")
 
+        shielded_instance_config {
+          enable_secure_boot          = lookup(var.cluster_autoscaling, "enable_secure_boot", false)
+          enable_integrity_monitoring = lookup(var.cluster_autoscaling, "enable_integrity_monitoring", true)
+        }
+
       }
     }
     autoscaling_profile = var.cluster_autoscaling.autoscaling_profile != null ? var.cluster_autoscaling.autoscaling_profile : "BALANCED"
